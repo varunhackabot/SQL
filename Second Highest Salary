@@ -1,0 +1,74 @@
+FIND SECOND HIGHEST SALARY
+
+DATA
+
++------+--------+---------+--------+--------+
+| ID   | Name   | Dept_ID | Job_ID | Salary |
++------+--------+---------+--------+--------+
+| A1   | Joe    |         | CEO    |  50000 |
+| I1   | Alice  | IT      | CL     |   6000 |
+| S1   | Jason  | Sales   | CL     |   4500 |
+| R1   | Alex   | Support | MG     |  12000 |
+| S2   | Terry  | Sales   | MG     |  17000 |
+| S3   | David  | Sales   | CL     |   3500 |
+| S4   | Mike   | Sales   | CL     |   5500 |
+| R2   | Jade   | Support | CL     |   5500 |
+| R3   | Jules  | Support | CL     |   6500 |
+| I2   | Shawn  | IT      | MG     |  20000 |
+| I3   | Guster | IT      | CL     |   7500 |
+| B1   | Aliyne | AD      | CL     |   6000 |
+| B3   | Alan   | AD      | CL     |   7000 |
+| B2   | Barry  | AD      | CL     |   6500 |
+| A1   | Joe    |         | CEO    |  50000 |
+| I1   | Alice  | IT      | CL     |   6000 |
+| S1   | Jason  | Sales   | CL     |   4500 |
+| R1   | Alex   | Support | MG     |  12000 |
+| S2   | Terry  | Sales   | MG     |  17000 |
+| S3   | David  | Sales   | CL     |   3500 |
+| S4   | Mike   | Sales   | CL     |   5500 |
+| R2   | Jade   | Support | CL     |   5500 |
+| R3   | Jules  | Support | CL     |   6500 |
+| I2   | Shawn  | IT      | MG     |  20000 |
+| I3   | Guster | IT      | CL     |   7500 |
+| B1   | Aliyne | AD      | CL     |   6000 |
+| B3   | Alan   | AD      | CL     |   7000 |
+| B2   | Barry  | AD      | CL     |   6500 |
++------+--------+---------+--------+--------+
+
+METHOD 1:
+
+mysql> select distinct(Salary) from data order by Salary desc limit 1 offset 1;
++--------+
+| Salary |
++--------+
+|  20000 |
++--------+
+
+METHOD 2:
+
+mysql> select Salary from data where Salary<(select max(Salary) from data) order by Salary desc limit 1;
++--------+
+| Salary |
++--------+
+|  20000 |
++--------+
+
+METHOD 3:
+
+mysql> select Salary from (select Salary,dense_rank() over(ORDER BY Salary DESC) as cnt from data) t1 where cnt=2 limit 1;
++--------+
+| Salary |
++--------+
+|  20000 |
++--------+
+
+METHOD 4:
+
+mysql> select Salary from data group by Salary order by Salar
+y desc limit 1,1;
++--------+
+| Salary |
++--------+
+|  20000 |
++--------+
+
