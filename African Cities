@@ -1,0 +1,25 @@
+Given the CITY and COUNTRY tables, query the names of all cities where the CONTINENT is 'Africa'.
+
+Note: CITY.CountryCode and COUNTRY.Code are matching key columns.
+
+Input Format
+
+The CITY and COUNTRY tables are described as follows:CITY.jpg
+
+Country.jpg
+
+SOLUTION
+
+SELECT a.NAME from CITY a join COUNTRY b on a.COUNTRYCODE=b.CODE where b.CONTINENT='Africa'; 
+
+OUTPUT
+
+Your Output (stdout)
+Qina
+Warraq al-Arab
+Kempton Park
+Alberton
+Klerksdorp
+Uitenhage
+Brakpan
+Libreville
